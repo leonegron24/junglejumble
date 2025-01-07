@@ -5,7 +5,7 @@ const USE_ROUTER = false
 
 class App {
 
-  JumbleContoller = new JumbleController()
+JumbleController = new JumbleController()
 
   constructor() {
     if (USE_ROUTER) {

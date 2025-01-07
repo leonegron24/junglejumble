@@ -1,4 +1,5 @@
 import { AppState } from "../AppState.js"
+import { jumbleService } from "../services/JumbleService.js"
 
 export class JumbleController{
 
@@ -14,7 +15,22 @@ export class JumbleController{
         jumbles.forEach(jumble => elmJumble.innerHTML += jumble.jumbleTemplate)
     }
 
-    // setActiveJumble(){
-    //     const selectedJumble = 
-    // }
+    setActiveJumble(jumbleName){
+        console.log('setting Active Jumble...')
+        jumbleService.setActiveJumble(jumbleName)
+    }
+
+    submitJumble(){
+        const textarea = document.getElementById('typeJumble')
+        if (!textarea){
+            return
+        }
+        const userInput = textarea.value.trim();
+        if (!userInput){
+            return
+        }
+        console.log('Users text submission:', userInput)
+        console.log('Active Jumble', AppState.activeJumble)
+        jumbleService.submitJumble(userInput)
+    }
 }

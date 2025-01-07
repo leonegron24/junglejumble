@@ -1,1 +1,7 @@
 /* BASIC STYLES HERE */
+#typeJumble {
+    width: 80%; /* Takes up 80% of the parent container */
+    height: 200px;
+    max-width: 100%; /* Ensures it doesn't overflow the parent */
+    box-sizing: border-box; /* Includes padding and border in the width/height */
+}

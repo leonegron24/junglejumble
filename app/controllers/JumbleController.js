@@ -6,6 +6,7 @@ export class JumbleController{
     constructor(){
         console.log('🎛️')
         this.drawJumble()
+        AppState.on("endTimeChanged", this.updateActiveJumble)
     }
     drawJumble(){
         console.log('🖊️')
@@ -33,4 +34,16 @@ export class JumbleController{
         console.log('Active Jumble', AppState.activeJumble)
         jumbleService.submitJumble(userInput)
     }
+
+    updateActiveJumble() {
+        const activeJumble = AppState.activeJumble;
+        if (!activeJumble) return;
+    
+        // Find the DOM element to update
+        const elmActiveJumble = document.getElementById("activeJumble");
+        if (elmActiveJumble) {
+          // Redraw the active jumble template with updated endTime
+          elmActiveJumble.innerHTML = activeJumble.activeJumbleTemplate;
+        }
+      }
 }

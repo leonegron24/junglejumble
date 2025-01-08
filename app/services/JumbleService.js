@@ -31,11 +31,15 @@ class JumbleService{
     }
 
     startGame(){
-        AppState.activeJumble.startTime = new Date
+        AppState.activeJumble.startTime = new Date()
     }
 
     endGame(){
-        AppState.activeJumble.endTime = new Date
+        const activeJumble = AppState.activeJumble
+        if (!activeJumble) return
+        activeJumble.endTime = new Date()
+        console.log("End Time Set:", activeJumble.endTime);
+        AppState.emit("endTimeChanged")
         return
     }
 }

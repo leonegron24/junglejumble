@@ -10,18 +10,15 @@ export class Jumble {
      * }} data 
      */
 
-    constructor( data) {
-      this.id = generateId() 
-      this.name = data.name
-      this.body = data.body
-      // to best keep track of the fastest times you might want these properties too! They would start null cause no one has completed these yet.
-      this.fastestTime = null
-      this.startTime = new Date(data.startTime)
-      this.endTime = new Date(data.endTime)
-      console.log("startTime:", data.startTime);
-      console.log("endTime:", data.endTime);
-
+    constructor(data) {
+      this.id = generateId();
+      this.name = data.name;
+      this.body = data.body;
+      this.fastestTime = null;
+      this.startTime = data.startTime ? new Date(data.startTime) : new Date();
+      this.endTime = data.endTime ? new Date(data.endTime) : new Date();
     }
+    
   
       get jumbleTemplate() { // a basic list template to get drawing
           return /*html*/ `
@@ -32,6 +29,7 @@ export class Jumble {
 
       get activeJumbleTemplate(){
         return /*html*/ `
+        <div id="activeJumble">
         <h1 class = 'mt-4 text-center'> ${this.name} </h1>
         <p> ${this.body} </p>
         <div class='text-center'>
@@ -39,15 +37,16 @@ export class Jumble {
         <button onclick="app.JumbleController.submitJumble()" class = 'btn btn-success mt-4'> Submit!</button>
         </div>
         <div> Start Time: ${this.startTimeFormat}</div>
-        <div>End Time: ${this.endTimeFormat} </div>
+        <div>End Time: ${this.endTimeFormat ? '': this.endTimeFormat} </div>   
+        </div>
         `
       }
 
       get startTimeFormat(){
-        return this.startTime.toLocaleTimeString()
+        return this.startTime.toLocaleTimeString(undefined)
       }
 
       get endTimeFormat(){
-        return this.endTime.toLocaleTimeString()
+        return this.endTime.toLocaleTimeString(undefined)
       }
   } 

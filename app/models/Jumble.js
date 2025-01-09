@@ -15,8 +15,8 @@ export class Jumble {
       this.name = data.name;
       this.body = data.body;
       this.fastestTime = null;
-      this.startTime = data.startTime ? new Date(data.startTime) : new Date();
-      this.endTime = data.endTime ? new Date(data.endTime) : new Date();
+      this.startTime = data.startTime ? new Date(data.startTime) : '';
+      this.endTime = data.endTime ? new Date(data.endTime) : '';
     }
     
   
@@ -33,20 +33,26 @@ export class Jumble {
         <h1 class = 'mt-4 text-center'> ${this.name} </h1>
         <p> ${this.body} </p>
         <div class='text-center'>
-        <textarea name="typeJumble" id="typeJumble"></textarea>
-        <button onclick="app.JumbleController.submitJumble()" class = 'btn btn-success mt-4'> Submit!</button>
+        ${this.startTime
+          ? ` 
+            <textarea name="typeJumble" id="typeJumble"></textarea> 
+            <button onclick="app.JumbleController.submitJumble()" class = 'btn btn-success mt-4'> Submit!</button>
+            ` 
+
+          : ' <button onclick = "app.JumbleController.startGame()"> Start Game </button> ' 
+        }
         </div>
         <div> Start Time: ${this.startTimeFormat}</div>
-        <div>End Time: ${this.endTimeFormat ? '': this.endTimeFormat} </div>   
+        <div>End Time: ${this.endTimeFormat ?this.endTimeFormat: ''} </div>   
         </div>
         `
       }
 
       get startTimeFormat(){
-        return this.startTime.toLocaleTimeString(undefined)
+        return this.startTime ? this.startTime.toLocaleTimeString(undefined) : ''
       }
 
       get endTimeFormat(){
-        return this.endTime.toLocaleTimeString(undefined)
+        return this.endTime ? this.endTime.toLocaleTimeString(undefined) : ''
       }
   } 

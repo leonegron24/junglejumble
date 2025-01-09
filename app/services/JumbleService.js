@@ -4,18 +4,11 @@ class JumbleService{
     
     setActiveJumble(jumbleName){
         console.log('Service Active Jumble...')
-        const elmActiveJumble = document.getElementById('activeJumble')
         const activeJumble = AppState.jumbles.find(jumble => jumble.name === jumbleName)
-        if (!elmActiveJumble){
-            return
-        }
         if (!activeJumble){
             return
         }
         AppState.activeJumble = activeJumble
-        elmActiveJumble.innerHTML = activeJumble.activeJumbleTemplate
-        console.log()
-        this.startGame()
     }
 
     submitJumble(userInput){
@@ -31,7 +24,11 @@ class JumbleService{
     }
 
     startGame(){
+        if (AppState.activeJumble.startTime){
+            return
+        }
         AppState.activeJumble.startTime = new Date()
+        AppState.emit('activeJumble')
     }
 
     endGame(){

@@ -5,20 +5,33 @@ export class JumbleController{
 
     constructor(){
         console.log('🎛️')
-        this.drawJumble()
+        this.drawJumbles()
         AppState.on("endTimeChanged", this.updateActiveJumble)
+        AppState.on("activeJumble", this.drawActiveJumble)
     }
-    drawJumble(){
+    drawJumbles(){
         console.log('🖊️')
         const elmJumble = document.getElementById('jumbles')
         const jumbles = AppState.jumbles
         if (!elmJumble){return}
         jumbles.forEach(jumble => elmJumble.innerHTML += jumble.jumbleTemplate)
     }
+    
+    drawActiveJumble(){
+        const elmActiveJumble = document.getElementById('activeJumble')
+        if (!elmActiveJumble){return}
+        elmActiveJumble.innerHTML = AppState.activeJumble.activeJumbleTemplate
+        console.log()
+    }
 
     setActiveJumble(jumbleName){
         console.log('setting Active Jumble...')
         jumbleService.setActiveJumble(jumbleName)
+    }
+
+    startGame(){
+        console.log("starting game")
+        jumbleService.startGame()
     }
 
     submitJumble(){

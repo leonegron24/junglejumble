@@ -8,6 +8,7 @@ export class JumbleController{
         this.drawJumbles()
         AppState.on("endTimeChanged", this.updateActiveJumble)
         AppState.on("activeJumble", this.drawActiveJumble)
+        AppState.on("startTimeChanged", this.updateActiveJumble)
     }
     drawJumbles(){
         console.log('🖊️')

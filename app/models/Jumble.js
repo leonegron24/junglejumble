@@ -5,8 +5,8 @@ export class Jumble {
      * @param {{
      * name: string,
      * body: string,
-     * startTime: Date,
-     * endTime: Date
+     * startTime: Date | String,
+     * endTime: Date | String,
      * }} data 
      */
 
@@ -14,7 +14,6 @@ export class Jumble {
       this.id = generateId();
       this.name = data.name;
       this.body = data.body;
-      this.fastestTime = null;
       this.startTime = data.startTime ? new Date(data.startTime) : '';
       this.endTime = data.endTime ? new Date(data.endTime) : '';
     }
@@ -43,7 +42,10 @@ export class Jumble {
         }
         </div>
         <div> Start Time: ${this.startTimeFormat}</div>
-        <div>End Time: ${this.endTimeFormat ?this.endTimeFormat: ''} </div>   
+        <div>End Time: ${this.endTimeFormat ?this.endTimeFormat: ''} </div>  
+        <div class='d-flex justify-content-center'>
+        <div class = 'text-center bg-white text-danger w-25'>Fastest Time: ${this.fastestTimeFormat}</div> 
+        </div>
         </div>
         `
       }
@@ -54,5 +56,19 @@ export class Jumble {
 
       get endTimeFormat(){
         return this.endTime ? this.endTime.toLocaleTimeString(undefined) : ''
+      }
+
+      get fastestTimeFormat() {
+        if (this.fastestTimeFormat){return}
+        if (this.startTime && this.endTime) {
+          const timeDifference = this.endTime - this.startTime; // Difference in milliseconds
+          const seconds = Math.floor((timeDifference / 1000) % 60);
+          const minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
+          const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+          return `${hours.toString().padStart(2, '0')}:${minutes
+            .toString()
+            .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        return '';
       }
   } 

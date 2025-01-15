@@ -39,17 +39,45 @@
   </header>
 
   <!-- SECTION -->
-  <main>
+  <main class="container-fluid">
        <!-- STUB Jumble List -->
-    <section class="container-fluid">
-      <div class="row shadow mt-4 justify-content-center" id="jumbles">
+    <section class="row">
+      <div class="col-12 shadow mt-4 justify-content-center" id="jumbles">
       Choose a Jumble!
       </div>
       <!-- STUB Active Jumble -->
-      <h1 class="row">
+      <h1 class="col-12">
         <p id="activeJumble" class="fs-4 text-start"></p>
       </h1>
     </section>
+
+    <!-- Create Jumble Form -->
+     <div class="justify-content-center"> 
+      <p>
+        Create a Jumble Below, or Select one from the list above.
+      </p>
+
+       <form onsubmit="app.JumbleController.createJumble()">
+        <div class="input-group align-items-center w-25"> 
+          <!-- Choosing an Animal -->
+            <p class="m-4">
+              Choose An Animal!
+            </p>
+          <select required class="form-control" name="newJumble" id="create-jumble">
+            <option value="🦑">Squid 🦑</option>
+            <option value="🦟">Bug 🦟</option>
+            <option value="🐀">Rat 🐀</option>
+            <option value="🐟">Fish 🐟</option>
+            <option value="🐦">Bird 🐦</option>
+          </select>
+        </div>
+          <!-- Typing the Jumble -->
+        <p class="m-4">
+          Type your Jumble!
+        </p>
+        <input required type="text" class="form-control row p-4" name="jumbleText" id="text-for-jumble">
+       </form>
+     </div>
   </main>
 
   <!-- SECTION -->

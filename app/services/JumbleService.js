@@ -1,4 +1,5 @@
 import { AppState } from "../AppState.js"
+import { Jumble } from "../models/Jumble.js"
 import {saveState} from "../utils/Store.js"
 import { loadState } from "../utils/Store.js"
 
@@ -60,6 +61,15 @@ class JumbleService{
         const fastestTime = loadState('fastestTimeFormat')
         console.log('fastest time', fastestTime)
         AppState.activeJumble.fastestTime = fastestTime
+    }
+
+    createJumble(newJumble){
+        console.log('servicing new jumble')
+        AppState.jumbles.push(newJumble)
+        let jumble = AppState.jumbles
+        saveState('jumbles', jumble)
+        const newJumbleList = loadState('jumbles', [Jumble])
+        AppState.jumbles = newJumbleList
     }
 
 }

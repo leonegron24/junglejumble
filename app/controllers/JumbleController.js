@@ -59,4 +59,11 @@ export class JumbleController{
           elmActiveJumble.innerHTML = activeJumble.activeJumbleTemplate;
         }
       }
+    
+    createJumble(){
+        console.log('controlling new jumble')
+        event.preventDefault()
+        const newJumble = event?.target
+        jumbleService.createJumble(newJumble)
+    }
 }

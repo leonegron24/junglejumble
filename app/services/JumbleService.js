@@ -26,10 +26,12 @@ class JumbleService{
     }
 
     startGame(){
-        if (AppState.activeJumble.startTime){
+        if (AppState.isTyping){
             return
         }
         AppState.activeJumble.startTime = new Date()
+        AppState.activeJumble.endTime = ''
+        AppState.isTyping = true
         AppState.emit('activeJumble')
     }
 
@@ -37,10 +39,13 @@ class JumbleService{
         const activeJumble = AppState.activeJumble
         if (!activeJumble) return
         activeJumble.endTime = new Date()
+        AppState.isTyping = false
+        const timeDifference = activeJumble.endTime - activeJumble.startTime;
+        if (timeDifference < activeJumble.fastestTime || !activeJumble.fastestTime ){
+            activeJumble.fastestTime = timeDifference
+        }
         console.log("End Time Set:", activeJumble.endTime);
         AppState.emit("endTimeChanged")
-        AppState.activeJumble.startTime = null
-        AppState.emit('startTimeChanged')
         console.log('starting game over', AppState.activeJumble.startTime)
         return
     }

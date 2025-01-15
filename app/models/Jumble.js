@@ -1,3 +1,4 @@
+import { AppState } from "../AppState.js";
 import { generateId } from "../utils/GenerateId.js";
 export class Jumble {
     /**
@@ -16,6 +17,7 @@ export class Jumble {
       this.body = data.body;
       this.startTime = data.startTime ? new Date(data.startTime) : '';
       this.endTime = data.endTime ? new Date(data.endTime) : '';
+      this.fastestTime = null
     }
     
   
@@ -32,7 +34,7 @@ export class Jumble {
         <h1 class = 'mt-4 text-center'> ${this.name} </h1>
         <p> ${this.body} </p>
         <div class='text-center'>
-        ${this.startTime
+        ${AppState.isTyping
           ? ` 
             <textarea name="typeJumble" id="typeJumble"></textarea> 
             <button onclick="app.JumbleController.submitJumble()" class = 'btn btn-success mt-4'> Submit!</button>
@@ -59,16 +61,11 @@ export class Jumble {
       }
 
       get fastestTimeFormat() {
-        if (this.fastestTimeFormat){return}
-        if (this.startTime && this.endTime) {
-          const timeDifference = this.endTime - this.startTime; // Difference in milliseconds
+          let timeDifference = this.fastestTime
           const seconds = Math.floor((timeDifference / 1000) % 60);
           const minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
-          const hours = Math.floor(timeDifference / (1000 * 60 * 60));
-          return `${hours.toString().padStart(2, '0')}:${minutes
+          return `${minutes
             .toString()
             .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
-        return '';
-      }
+       }
   } 

@@ -22,7 +22,7 @@ class ObservableAppState extends EventEmitter {
     activeJumble = null
 
     endTimeChanged = 0
-    startTimeChanged = 0
+    isTyping = false
 }
 
 export const AppState = createObservableProxy(new ObservableAppState())

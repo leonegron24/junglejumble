@@ -63,15 +63,25 @@ class JumbleService{
         AppState.activeJumble.fastestTime = fastestTime
     }
 
-    createJumble(newJumble){
-        console.log('servicing new jumble')
-        AppState.jumbles.push(newJumble)
-        let jumble = AppState.jumbles
-        saveState('jumbles', jumble)
-        const newJumbleList = loadState('jumbles', [Jumble])
-        AppState.jumbles = newJumbleList
+    createJumble(jumbleData){
+        const jumble = new Jumble(jumbleData)
+        console.log('new jumble', jumble)
+        console.log('jumbles list before creation', AppState.jumbles)
+        AppState.jumbles.push(jumble)
+        console.log('new list of jumbles', AppState.jumbles)
+        this.saveJumble()
     }
 
+    saveJumble(){
+        const jumbles = AppState.jumbles
+        saveState('newJumbles',jumbles)
+    }
+
+    loadJumble(){
+        const jumbles = loadState('newJumbles', [Jumble])
+        console.log('loaded jumbles', jumbles)
+        AppState.jumbles = jumbles
+   }
 }
 
 export const jumbleService = new JumbleService()

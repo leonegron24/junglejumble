@@ -1,5 +1,6 @@
 import { AppState } from "../AppState.js"
 import { jumbleService } from "../services/JumbleService.js"
+import { getFormData } from "../utils/FormHandler.js"
 
 export class JumbleController{
 
@@ -8,13 +9,17 @@ export class JumbleController{
         this.drawJumbles()
         AppState.on("endTimeChanged", this.updateActiveJumble)
         AppState.on("activeJumble", this.drawActiveJumble)
+        AppState.on('jumbles', this.drawJumbles)
+        jumbleService.loadJumble()
     }
     drawJumbles(){
         console.log('🖊️')
-        const elmJumble = document.getElementById('jumbles')
         const jumbles = AppState.jumbles
+        let listContent = ''
+        jumbles.forEach(jumble => listContent += jumble.jumbleTemplate)
+        const elmJumble = document.getElementById('jumbles')
         if (!elmJumble){return}
-        jumbles.forEach(jumble => elmJumble.innerHTML += jumble.jumbleTemplate)
+        elmJumble.innerHTML = listContent
     }
     
     drawActiveJumble(){
@@ -64,6 +69,9 @@ export class JumbleController{
         console.log('controlling new jumble')
         event.preventDefault()
         const newJumble = event?.target
-        jumbleService.createJumble(newJumble)
+        const jumbleData = getFormData(newJumble)
+        console.log('submitted', newJumble, jumbleData)
+        jumbleService.createJumble(jumbleData)
     }
+    
 }
